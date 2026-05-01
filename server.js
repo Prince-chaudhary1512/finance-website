@@ -52,7 +52,7 @@ function getEnvValue(key, fallback = "") {
 }
 
 const app = express();
-const PORT = Number(process.env.PORT || 8080);
+const PORT = Number(process.env.PORT || 3000);
 const PUBLIC_DIR = path.join(__dirname, "public");
 const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL || "";
 const ADMIN_API_KEY = getEnvValue("ADMIN_API_KEY", "");
