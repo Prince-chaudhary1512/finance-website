@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MR OK Financial Services | Loans, Insurance & Advisory</title>
+  <meta
+    name="description"
+    content="MR OK Financial Services in Gurugram: home loans, LAP, project loans, builder micro CF, business loans, personal loans, vehicle loans, and insurance assistance. Apply online or call our team."
+  />
+  <link rel="icon" href="/mroklogo.jpeg" type="image/jpeg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="MR OK Financial Services" />
+  <meta property="og:title" content="MR OK Financial Services | Loans, Insurance &amp; Advisory" />
+  <meta
+    property="og:description"
+    content="MR OK Financial Services in Gurugram: home loans, LAP, project loans, builder micro CF, business loans, personal loans, vehicle loans, and insurance assistance. Apply online or call our team."
+  />
+  <meta property="og:url" content="__OG_CANONICAL_URL__" />
+  <meta property="og:image" content="__OG_IMAGE_URL__" />
+  <meta property="og:image:alt" content="MR OK Financial Services" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MR OK Financial Services | Loans, Insurance &amp; Advisory" />
+  <meta
+    name="twitter:description"
+    content="MR OK Financial Services in Gurugram: home loans, LAP, project loans, builder micro CF, business loans, personal loans, vehicle loans, and insurance assistance. Apply online or call our team."
+  />
+  <meta name="twitter:image" content="__OG_IMAGE_URL__" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 10% 10%, rgba(14, 165, 233, 0.12), transparent 40%),
+        radial-gradient(circle at 90% 0%, rgba(20, 184, 166, 0.1), transparent 35%),
+        #020617;
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+
+    .reveal.in {
+      animation: revealUp 0.6s ease both;
+    }
+
+    .hero-glow {
+      animation: floatGlow 6s ease-in-out infinite;
+    }
+
+    .hero-eyebrow {
+      letter-spacing: 0.06em;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-title {
+      text-wrap: balance;
+      text-shadow: 0 10px 30px rgba(2, 6, 23, 0.35);
+    }
+
+    .hero-title-accent {
+      background: linear-gradient(135deg, #38bdf8, #22d3ee);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      max-width: 40ch;
+      line-height: 1.75;
+    }
+
+    .hero-cta {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero-cta-primary {
+      box-shadow: 0 14px 26px rgba(2, 132, 199, 0.28);
+    }
+
+    .hero-cta-secondary {
+      background: rgba(15, 23, 42, 0.38);
+    }
+
+    .snapshot-card {
+      background: linear-gradient(160deg, rgba(15, 23, 42, 0.86), rgba(2, 6, 23, 0.72));
+    }
+
+    .snapshot-title {
+      letter-spacing: 0.01em;
+    }
+
+    .snapshot-stat {
+      background: rgba(2, 6, 23, 0.58);
+      border-color: rgba(148, 163, 184, 0.28);
+    }
+
+    .snapshot-value {
+      line-height: 1.2;
+    }
+
+    .lift-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .lift-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(2, 132, 199, 0.2);
+      border-color: rgba(14, 165, 233, 0.6);
+    }
+
+    .products-menu summary {
+      list-style: none;
+    }
+    .products-menu summary::-webkit-details-marker {
+      display: none;
+    }
+
+    @keyframes floatGlow {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-8px) scale(1.01); }
+    }
+
+    @keyframes revealUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    html[data-theme="light"] .hero-title {
+      text-shadow: none;
+      color: #0f172a;
+    }
+
+    html[data-theme="light"] .hero-title-accent {
+      background: linear-gradient(135deg, #0284c7, #0ea5e9);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    html[data-theme="light"] .hero-subtitle {
+      color: #1e293b;
+    }
+
+    html[data-theme="light"] .hero-eyebrow {
+      background: rgba(2, 132, 199, 0.1) !important;
+      border-color: rgba(2, 132, 199, 0.35) !important;
+      color: #075985 !important;
+    }
+
+    html[data-theme="light"] .hero-cta-primary {
+      box-shadow: 0 12px 24px rgba(2, 132, 199, 0.22);
+    }
+
+    html[data-theme="light"] .hero-cta-secondary {
+      background: #f8fbff;
+    }
+
+    html[data-theme="light"] .snapshot-card {
+      background: linear-gradient(160deg, #ffffff, #f3f8ff);
+    }
+
+    html[data-theme="light"] .snapshot-title {
+      color: #0f172a;
+    }
+
+    html[data-theme="light"] .snapshot-stat {
+      background: #ffffff;
+      border-color: #c7d4e5;
+    }
+
+    html[data-theme="light"] .snapshot-value {
+      color: #075985;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100">
+  <header class="sticky top-0 z-50 border-b border-slate-800/80 bg-slate-950/95 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+      <a href="/" class="flex shrink-0 items-center" aria-label="MR OK Financial Services home">
+        <img
+          src="/mroklogo.jpeg"
+          alt="MR OK Financial Services"
+          class="h-9 w-auto max-h-10 object-contain md:h-10"
+          width="180"
+          height="40"
+          decoding="async"
+        />
+      </a>
+      <nav class="flex items-center gap-4 text-sm text-slate-300 md:gap-7">
+        <details class="products-menu relative">
+          <summary class="cursor-pointer hover:text-white">Products</summary>
+          <div class="absolute left-0 top-8 z-50 w-64 rounded-2xl border border-slate-700 bg-slate-900 p-2 shadow-2xl shadow-slate-950/70">
+            <a href="/home-loan.html" class="block rounded-xl px-4 py-3 font-semibold text-sky-300 hover:bg-slate-800">Home Loans</a>
+            <a href="/lap-loan.html" class="block rounded-xl px-4 py-3 hover:bg-slate-800">Loan Against Property (LAP)</a>
+            <a href="/project-loan.html" class="block rounded-xl px-4 py-3 hover:bg-slate-800">Project Loans</a>
+            <a href="/builder-funding-micro-cf.html" class="block rounded-xl px-4 py-3 hover:bg-slate-800">Builder Funding - Micro CF</a>
+            <a href="/business-loan.html" class="block rounded-xl px-4 py-3 hover:bg-slate-800">Business Loans</a>
+            <a href="/personal-loan.html" class="block rounded-xl px-4 py-3 font-semibold text-sky-300 hover:bg-slate-800">Personal Loans</a>
+            <a href="/vehicle-loan.html" class="block rounded-xl px-4 py-3 hover:bg-slate-800">Vehicle Loans (New & Old)</a>
+            <a href="/insurance.html" class="block rounded-xl px-4 py-3 hover:bg-slate-800">Insurance Services</a>
+          </div>
+        </details>
+        <a href="/about" class="hover:text-white">About</a>
+        <a href="#support" class="hover:text-white">Support</a>
+      </nav>
+      <a href="/#apply-form" class="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-sky-400">Apply Now</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="relative overflow-hidden border-b border-slate-800 reveal">
+      <div class="hero-glow absolute inset-0 bg-gradient-to-br from-sky-600/20 via-transparent to-emerald-500/10"></div>
+      <div class="relative mx-auto grid max-w-7xl gap-10 px-6 py-16 md:grid-cols-2 md:py-24">
+        <div>
+          <p class="hero-eyebrow mb-4 inline-flex rounded-full border border-brand/40 bg-brand/10 px-3 py-1 text-xs font-medium text-sky-200">
+            Trusted digital financial partner
+          </p>
+          <h1 class="hero-title text-4xl font-extrabold leading-tight sm:text-5xl">
+            Bigger Goals.
+            <span class="hero-title-accent">Smarter Loans.</span>
+            Faster Approvals.
+          </h1>
+          <p class="hero-subtitle mt-5 max-w-xl text-slate-300">
+            Get expert financial advice and solutions under one roof at MR OK Financial Services.
+            What is your next big move? Let us help you achieve it.
+          </p>
+          <div id="apply" class="mt-8 flex flex-wrap gap-3">
+            <a href="/personal-loan.html" class="hero-cta hero-cta-primary rounded-lg bg-brand px-5 py-3 text-sm font-semibold text-white hover:bg-sky-400">Get Personal Loan</a>
+            <a href="/business-loan.html" class="hero-cta hero-cta-secondary rounded-lg border border-slate-700 px-5 py-3 text-sm font-semibold hover:border-slate-500">Explore Business Loans</a>
+          </div>
+        </div>
+
+        <div class="snapshot-card lift-card rounded-2xl border border-slate-800 bg-slate-900/70 p-6 shadow-2xl shadow-sky-900/20">
+          <h2 class="snapshot-title text-lg font-semibold">Quick Loan Snapshot</h2>
+          <div class="mt-5 grid grid-cols-2 gap-4 text-sm">
+            <div class="snapshot-stat rounded-xl border border-slate-800 bg-slate-950 p-4">
+              <p class="text-slate-400">Home Loan</p>
+              <p class="snapshot-value mt-1 text-xl font-bold text-brand">5 lacs to 25 crs</p>
+            </div>
+            <div class="snapshot-stat rounded-xl border border-slate-800 bg-slate-950 p-4">
+              <p class="text-slate-400">LAP</p>
+              <p class="snapshot-value mt-1 text-xl font-bold text-brand">5 lacs to 25 crs</p>
+            </div>
+            <div class="snapshot-stat rounded-xl border border-slate-800 bg-slate-950 p-4">
+              <p class="text-slate-400">Rates from</p>
+              <p class="snapshot-value mt-1 text-xl font-bold text-emerald-300">7.10% p.a.</p>
+            </div>
+            <div class="snapshot-stat rounded-xl border border-slate-800 bg-slate-950 p-4">
+              <p class="text-slate-400">Personal Loan</p>
+              <p class="snapshot-value mt-1 text-xl font-bold text-emerald-300">Up to 50 lacs @ 9.99%</p>
+            </div>
+          </div>
+          <p class="mt-5 text-xs text-slate-500">Personal loan PF: 1%. Builder loan Micro CF: 1 crs - 15 crs with minimum rate and processing fee.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-7xl px-6 py-12 reveal">
+      <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+        <div class="lift-card rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <p class="text-3xl font-bold text-brand">17+</p>
+          <p class="mt-2 text-sm text-slate-300">Years of trusted service</p>
+        </div>
+        <div class="lift-card rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <p class="text-3xl font-bold text-brand">28</p>
+          <p class="mt-2 text-sm text-slate-300">States served across India</p>
+        </div>
+        <div class="lift-card rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <p class="text-3xl font-bold text-brand">2 Cr+</p>
+          <p class="mt-2 text-sm text-slate-300">Customers impacted</p>
+        </div>
+        <div class="lift-card rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <p class="text-3xl font-bold text-brand">24/7</p>
+          <p class="mt-2 text-sm text-slate-300">Customer support channels</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="products" class="border-y border-slate-800 bg-slate-900/40 reveal">
+      <div class="mx-auto max-w-7xl px-6 py-14">
+        <div class="mb-8">
+          <p class="text-xs font-semibold uppercase tracking-wider text-brand">Our Products</p>
+          <h2 class="mt-2 text-3xl font-bold">Loan types and financial services</h2>
+        </div>
+        <div class="grid gap-5 md:grid-cols-3">
+          <article class="lift-card rounded-2xl border border-slate-800 bg-slate-950 p-6">
+            <h3 class="text-xl font-semibold">Core Loans</h3>
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-300">
+              <li>Home Loans</li>
+              <li>Loan Against Property (LAP)</li>
+              <li>Project Loans</li>
+              <li>Builder Funding - Micro CF</li>
+            </ul>
+          </article>
+          <article class="lift-card rounded-2xl border border-slate-800 bg-slate-950 p-6">
+            <h3 class="text-xl font-semibold">Personal & Business</h3>
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-300">
+              <li>Business Loans (up to 1 cr)</li>
+              <li>Personal Loans (up to 50 lacs)</li>
+              <li>Vehicle Loans (New & Old)</li>
+            </ul>
+            <a href="/personal-loan.html" class="mt-5 inline-block text-sm font-semibold text-brand hover:text-sky-300">View personal loan page</a>
+          </article>
+          <article class="lift-card rounded-2xl border border-slate-800 bg-slate-950 p-6">
+            <h3 class="text-xl font-semibold">Additional Services</h3>
+            <ul class="mt-3 list-disc space-y-2 pl-5 text-sm text-slate-300">
+              <li>Insurance Services</li>
+              <li>Expert financial advice</li>
+              <li>End-to-end loan assistance</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="mx-auto grid max-w-7xl gap-10 px-6 py-14 md:grid-cols-2 reveal">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wider text-brand">About Us</p>
+        <h2 class="mt-2 text-3xl font-bold">MR OK Financial Services</h2>
+        <p class="mt-5 text-slate-300">
+          MR OK Financial Services is a trusted financial solutions partner committed to helping
+          individuals and businesses achieve their goals with the right loan and financing support.
+          We provide guidance across a wide range of loan products, including personal loans, home
+          loans, loans against property, business loans, and other customized financial solutions.
+        </p>
+        <p class="mt-4 text-slate-300">
+          With a strong network of lending partners and a team of professionals with 10+ years of
+          combined experience, we focus on making the loan process simple, transparent, and efficient.
+          Our goal is to help customers get access to the right financial products with faster
+          approvals and personalized support.
+        </p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div class="lift-card rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <h3 class="font-semibold">Fast Approval</h3>
+          <p class="mt-2 text-sm text-slate-300">Minimal paperwork and instant eligibility checks.</p>
+        </div>
+        <div class="lift-card rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <h3 class="font-semibold">Transparent Pricing</h3>
+          <p class="mt-2 text-sm text-slate-300">Clear interest rates, charges, and repayment schedules.</p>
+        </div>
+        <div class="lift-card rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <h3 class="font-semibold">Wide Reach</h3>
+          <p class="mt-2 text-sm text-slate-300">Available across major cities and emerging markets.</p>
+        </div>
+        <div class="lift-card rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <h3 class="font-semibold">Expert Support</h3>
+          <p class="mt-2 text-sm text-slate-300">Dedicated phone, chat, and self-service support channels.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="support" class="border-y border-slate-800 bg-slate-900/40 reveal">
+      <div class="mx-auto max-w-7xl px-6 py-14">
+        <h2 class="text-3xl font-bold">Customer support made simple</h2>
+        <div class="mt-7 grid gap-4 md:grid-cols-3">
+          <div class="lift-card rounded-xl border border-slate-800 bg-slate-950 p-5">
+            <h3 class="font-semibold">Video Tutorials</h3>
+            <p class="mt-2 text-sm text-slate-300">Step-by-step onboarding and repayment walkthroughs.</p>
+          </div>
+          <div class="lift-card rounded-xl border border-slate-800 bg-slate-950 p-5">
+            <h3 class="font-semibold">Email Support</h3>
+            <p class="mt-2 text-sm text-slate-300">
+              Write to us at
+              <a href="mailto:mrokfinance@gmail.com" class="font-medium text-sky-300 hover:text-sky-200">mrokfinance@gmail.com</a>
+              for guidance and query resolution.
+            </p>
+          </div>
+          <div class="lift-card rounded-xl border border-slate-800 bg-slate-950 p-5">
+            <h3 class="font-semibold">Phone Assistance</h3>
+            <p class="mt-2 text-sm text-slate-300">
+              Speak directly with our team at
+              <a href="tel:+919217001304" class="font-medium text-sky-300 hover:text-sky-200">+91 9217001304</a>
+              or
+              <a href="tel:+919217001305" class="font-medium text-sky-300 hover:text-sky-200">+91 9217001305</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="news" class="mx-auto max-w-7xl px-6 py-14 reveal">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <h2 class="text-3xl font-bold">Key Loan Details</h2>
+        <a href="#apply-form" class="text-sm font-semibold text-brand hover:text-sky-300">Apply now</a>
+      </div>
+      <div class="mt-7 grid gap-5 md:grid-cols-3">
+        <article class="lift-card rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <p class="text-xs text-slate-400">Home Loan</p>
+          <h3 class="mt-2 text-lg font-semibold">5 lacs to 25 crs</h3>
+        </article>
+        <article class="lift-card rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <p class="text-xs text-slate-400">LAP</p>
+          <h3 class="mt-2 text-lg font-semibold">5 lacs to 25 crs</h3>
+        </article>
+        <article class="lift-card rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <p class="text-xs text-slate-400">Rates</p>
+          <h3 class="mt-2 text-lg font-semibold">ROI starts at 7.10%, Personal Loan 9.99%, PF 1%</h3>
+        </article>
+      </div>
+    </section>
+
+    <section id="emi-calculator" class="border-y border-slate-800 bg-slate-900/40 reveal">
+      <div class="mx-auto max-w-7xl px-6 py-14">
+        <div class="mb-8">
+          <p class="text-xs font-semibold uppercase tracking-wider text-brand">EMI Calculator</p>
+          <h2 class="mt-2 text-3xl font-bold">Calculate your monthly EMI instantly</h2>
+          <p class="mt-3 max-w-2xl text-sm text-slate-300">
+            Enter loan amount, interest rate, and tenure to estimate your monthly installment.
+          </p>
+          <p class="mt-3 max-w-2xl text-xs text-slate-500">
+            EMI results are indicative estimates. Final EMI and rates depend on lender policy, eligibility, and documentation.
+          </p>
+        </div>
+
+        <div class="grid gap-6 rounded-2xl border border-slate-800 bg-slate-950 p-6 md:grid-cols-2 lift-card">
+          <div class="space-y-4">
+            <div>
+              <label for="emi-loan-amount" class="mb-2 block text-sm font-medium text-slate-200">Loan Amount (INR)</label>
+              <input id="emi-loan-amount" type="number" min="1" step="1000" value="500000" class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none ring-brand/40 focus:ring-2" />
+            </div>
+            <div>
+              <label for="emi-interest-rate" class="mb-2 block text-sm font-medium text-slate-200">Annual Interest Rate (%)</label>
+              <input id="emi-interest-rate" type="number" min="0.1" step="0.01" value="9.5" class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none ring-brand/40 focus:ring-2" />
+            </div>
+            <div>
+              <label for="emi-tenure-years" class="mb-2 block text-sm font-medium text-slate-200">Tenure (Years)</label>
+              <input id="emi-tenure-years" type="number" min="1" step="1" value="5" class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none ring-brand/40 focus:ring-2" />
+            </div>
+            <button id="emi-calculate-btn" type="button" class="rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-white hover:bg-sky-400">
+              Calculate EMI
+            </button>
+          </div>
+
+          <div class="rounded-xl border border-slate-800 bg-slate-900/70 p-5">
+            <p class="text-sm text-slate-400">Estimated Monthly EMI</p>
+            <p id="emi-result" class="mt-2 text-3xl font-extrabold text-emerald-300">Rs 0</p>
+            <div class="mt-5 space-y-3 text-sm">
+              <div class="flex items-center justify-between">
+                <span class="text-slate-300">Total Interest</span>
+                <span id="emi-total-interest" class="font-semibold text-slate-100">Rs 0</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-slate-300">Total Amount Payable</span>
+                <span id="emi-total-payable" class="font-semibold text-slate-100">Rs 0</span>
+              </div>
+            </div>
+            <p id="emi-error" class="mt-4 text-sm text-red-300"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="apply-form" class="border-y border-slate-800 bg-slate-900/40 reveal">
+      <div class="mx-auto max-w-7xl px-6 py-14">
+        <div class="mb-8">
+          <p class="text-xs font-semibold uppercase tracking-wider text-brand">Apply Now</p>
+          <h2 class="mt-2 text-3xl font-bold">Apply for your loan in minutes</h2>
+          <p class="mt-3 max-w-2xl text-sm text-slate-300">
+            Fill in your details and our team will contact you shortly.
+          </p>
+          <p class="mt-3 max-w-2xl text-xs text-slate-500">
+            By submitting, you agree to be contacted by MR OK Financial Services via call/email/WhatsApp about your request. Read our
+            <a class="font-semibold text-sky-300 hover:text-sky-200" href="/privacy.html">Privacy Policy</a>.
+          </p>
+        </div>
+        <div id="local-lead-form-card">
+        <form id="lead-form" class="grid gap-5 rounded-2xl border border-slate-800 bg-slate-950 p-6 md:grid-cols-2 lift-card">
+          <div>
+            <label for="full-name" class="mb-2 block text-sm font-medium text-slate-200">Full Name</label>
+            <input id="full-name" name="name" type="text" placeholder="Enter your full name" class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none ring-brand/40 focus:ring-2" required />
+          </div>
+          <div>
+            <label for="loan-type" class="mb-2 block text-sm font-medium text-slate-200">Loan Type</label>
+            <select id="loan-type" name="loanType" class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-slate-100 outline-none ring-brand/40 focus:ring-2" required>
+              <option value="">Select loan type</option>
+              <option>Home Loan</option>
+              <option>Loan Against Property (LAP)</option>
+              <option>Project Loan</option>
+              <option>Builder Funding - Micro CF</option>
+              <option>Business Loan</option>
+              <option>Personal Loan</option>
+              <option>Vehicle Loan (New)</option>
+              <option>Vehicle Loan (Old)</option>
+            </select>
+          </div>
+          <div>
+            <label for="loan-amount" class="mb-2 block text-sm font-medium text-slate-200">Loan Amount</label>
+            <input id="loan-amount" name="loanAmount" type="text" placeholder="Enter required amount" class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none ring-brand/40 focus:ring-2" required />
+          </div>
+          <div>
+            <label for="city" class="mb-2 block text-sm font-medium text-slate-200">City</label>
+            <input id="city" name="city" type="text" placeholder="Enter your city" class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none ring-brand/40 focus:ring-2" required />
+          </div>
+          <div>
+            <label for="mobile" class="mb-2 block text-sm font-medium text-slate-200">Mobile Number</label>
+            <input id="mobile" name="mobile" type="tel" placeholder="Enter your mobile number" class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none ring-brand/40 focus:ring-2" required />
+          </div>
+          <div>
+            <label for="email" class="mb-2 block text-sm font-medium text-slate-200">Email Address</label>
+            <input id="email" name="email" type="email" placeholder="Enter your email address" class="w-full rounded-lg border border-slate-700 bg-slate-900 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 outline-none ring-brand/40 focus:ring-2" required />
+          </div>
+          <div class="md:col-span-2">
+            <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-800 bg-slate-900/40 p-4 text-sm text-slate-200">
+              <input id="consent" type="checkbox" class="mt-1 h-4 w-4 rounded border-slate-600 bg-slate-950 text-brand" required />
+              <span>
+                I confirm the details are correct and I agree to be contacted about this loan application.
+              </span>
+            </label>
+          </div>
+          <div class="md:col-span-2">
+            <button type="submit" class="rounded-lg bg-brand px-6 py-3 text-sm font-semibold text-white hover:bg-sky-400">
+              Submit Application
+            </button>
+          </div>
+          <p id="form-message" class="md:col-span-2 text-sm text-slate-300"></p>
+        </form>
+        </div>
+        <div id="dsa-lead-form-card" class="mt-8 rounded-2xl border border-slate-800 bg-slate-950 p-6 hidden">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-brand">DSA Sathi Form</p>
+          <div id="dsa-lead-form"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-800 bg-slate-900/50">
+    <div class="mx-auto grid max-w-7xl gap-8 px-6 py-12 md:grid-cols-5">
+      <div>
+        <a href="/" class="inline-block" aria-label="MR OK Financial Services home">
+          <img
+            src="/mroklogo.jpeg"
+            alt="MR OK Financial Services"
+            class="h-10 w-auto max-w-[200px] object-contain object-left"
+            width="200"
+            height="48"
+            decoding="async"
+          />
+        </a>
+        <p class="mt-3 text-sm text-slate-400">Technology-led finance for personal and business growth.</p>
+        <div class="mt-3 flex flex-wrap gap-3 text-sm">
+          <a href="https://www.facebook.com/share/18ZoFWsano/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="text-sky-300 hover:text-sky-200">Facebook</a>
+          <a href="https://www.instagram.com/mrokfinance?igsh=em5wOXFyYmRkazNq&utm_source=qr" target="_blank" rel="noopener noreferrer" class="text-sky-300 hover:text-sky-200">Instagram</a>
+        </div>
+      </div>
+      <div>
+        <p class="font-semibold">Products</p>
+        <ul class="mt-3 space-y-2 text-sm text-slate-300">
+          <li><a href="/personal-loan.html" class="hover:text-white">Personal Loan</a></li>
+          <li><a href="/business-loan.html" class="hover:text-white">Business Loan</a></li>
+          <li><a href="/home-loan.html" class="hover:text-white">Home Loan</a></li>
+          <li><a href="/insurance.html" class="hover:text-white">Insurance Services</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="font-semibold">Support</p>
+        <ul class="mt-3 space-y-2 text-sm text-slate-300">
+          <li><a href="/faq.html" class="hover:text-white">FAQs</a></li>
+          <li><a href="/portal.html" class="hover:text-white">Customer Portal</a></li>
+          <li><a href="/grievance.html" class="hover:text-white">Grievance Redressal</a></li>
+          <li><a href="/terms.html" class="hover:text-white">Terms</a></li>
+          <li><a href="/privacy.html" class="hover:text-white">Privacy</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-2">
+        <p class="font-semibold">Contact</p>
+        <ul class="mt-3 space-y-2 text-sm text-slate-300">
+          <li><a href="tel:+919217001304" class="hover:text-white">+91 9217001304</a></li>
+          <li><a href="tel:+919217001305" class="hover:text-white">+91 9217001305</a></li>
+          <li><a href="mailto:mrokfinance@gmail.com" class="hover:text-white">mrokfinance@gmail.com</a></li>
+          <li>Shop No. 10 FF Ninex City Mart, Sector 49, Sohna Road, Gurugram, Haryana 122018</li>
+        </ul>
+        <div class="mt-4 overflow-hidden rounded-xl border border-slate-800 bg-slate-900/50">
+          <iframe
+            title="MR OK Financial Services Office Location"
+            src="https://www.google.com/maps?q=Shop+No.+10+FF+Ninex+City+Mart+Sector+49+Sohna+Road+Gurugram+Haryana+122018&output=embed"
+            class="h-44 w-full border-0"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=Shop+No.+10+FF+Ninex+City+Mart+Sector+49+Sohna+Road+Gurugram+Haryana+122018"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-3 inline-block text-sm font-semibold text-sky-300 hover:text-sky-200"
+        >
+          Open in Google Maps
+        </a>
+      </div>
+    </div>
+    <div class="border-t border-slate-800 px-6 py-4 text-center text-xs text-slate-400">
+      Copyright 2026 MR OK Financial Services. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    const useDsaPublicForm = "__USE_DSA_PUBLIC_FORM__" === "true";
+    const localLeadFormCard = document.getElementById("local-lead-form-card");
+    const dsaLeadFormCard = document.getElementById("dsa-lead-form-card");
+
+    if (useDsaPublicForm) {
+      if (localLeadFormCard) localLeadFormCard.classList.add("hidden");
+      if (dsaLeadFormCard) dsaLeadFormCard.classList.remove("hidden");
+    } else {
+      if (localLeadFormCard) localLeadFormCard.classList.remove("hidden");
+      if (dsaLeadFormCard) dsaLeadFormCard.classList.add("hidden");
+    }
+
+    const form = document.getElementById("lead-form");
+    const formMessage = document.getElementById("form-message");
+    const emiLoanAmount = document.getElementById("emi-loan-amount");
+    const emiInterestRate = document.getElementById("emi-interest-rate");
+    const emiTenureYears = document.getElementById("emi-tenure-years");
+    const emiCalculateBtn = document.getElementById("emi-calculate-btn");
+    const emiResult = document.getElementById("emi-result");
+    const emiTotalInterest = document.getElementById("emi-total-interest");
+    const emiTotalPayable = document.getElementById("emi-total-payable");
+    const emiError = document.getElementById("emi-error");
+
+    function formatInr(value) {
+      return `Rs ${Number(value).toLocaleString("en-IN", { maximumFractionDigits: 2 })}`;
+    }
+
+    function sanitizeMobile(raw) {
+      return String(raw || "")
+        .replace(/[^\d+]/g, "")
+        .replace(/(?!^)\+/g, "");
+    }
+
+    function calculateEmi() {
+      const principal = Number(emiLoanAmount.value);
+      const annualRate = Number(emiInterestRate.value);
+      const years = Number(emiTenureYears.value);
+
+      if (!principal || principal <= 0 || !annualRate || annualRate <= 0 || !years || years <= 0) {
+        emiError.textContent = "Please enter valid positive values for amount, rate, and tenure.";
+        emiResult.textContent = "Rs 0";
+        emiTotalInterest.textContent = "Rs 0";
+        emiTotalPayable.textContent = "Rs 0";
+        return;
+      }
+
+      emiError.textContent = "";
+      const monthlyRate = annualRate / 12 / 100;
+      const months = years * 12;
+      const emi =
+        (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+        (Math.pow(1 + monthlyRate, months) - 1);
+
+      const totalPayable = emi * months;
+      const totalInterest = totalPayable - principal;
+
+      emiResult.textContent = formatInr(emi);
+      emiTotalInterest.textContent = formatInr(totalInterest);
+      emiTotalPayable.textContent = formatInr(totalPayable);
+    }
+
+    emiCalculateBtn.addEventListener("click", calculateEmi);
+    [emiLoanAmount, emiInterestRate, emiTenureYears].forEach((field) => {
+      field.addEventListener("input", calculateEmi);
+    });
+    calculateEmi();
+
+    if (form && !useDsaPublicForm) {
+      form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const submitButton = form.querySelector("button[type='submit']");
+      submitButton.disabled = true;
+      submitButton.textContent = "Submitting...";
+
+      const payload = {
+        name: form.name.value.trim(),
+        loanType: form.loanType.value.trim(),
+        loanAmount: form.loanAmount.value.trim(),
+        city: form.city.value.trim(),
+        mobile: sanitizeMobile(form.mobile.value),
+        email: form.email.value.trim(),
+      };
+
+      try {
+        const response = await fetch("/api/leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+        if (!response.ok || !data.success) {
+          const fieldErrors = data?.errors?.fieldErrors || {};
+          const message =
+            fieldErrors.name?.[0] ||
+            fieldErrors.mobile?.[0] ||
+            fieldErrors.email?.[0] ||
+            fieldErrors.city?.[0] ||
+            fieldErrors.loanAmount?.[0] ||
+            fieldErrors.loanType?.[0] ||
+            data.message ||
+            "Submission failed";
+          throw new Error(message);
+        }
+
+        form.reset();
+        formMessage.textContent = "Thank you. Your application has been submitted successfully.";
+        formMessage.className = "md:col-span-2 text-sm text-emerald-300";
+      } catch (error) {
+        formMessage.textContent = error.message || "Something went wrong. Please try again.";
+        formMessage.className = "md:col-span-2 text-sm text-red-300";
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit Application";
+      }
+      });
+    }
+
+    const revealItems = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("in");
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    revealItems.forEach((item) => {
+      item.classList.add("in");
+      revealObserver.observe(item);
+    });
+
+    (function initDsaLeadWidget() {
+      if (!useDsaPublicForm) return;
+      var API = "https://api.dsasathi.com/api/v1";
+      var SLUG = "mr-ok-financial-services";
+      var container = document.getElementById("dsa-lead-form");
+      if (!container) return;
+
+      container.innerHTML = `
+        <form id="__dsa_form" style="max-width:480px;font-family:system-ui,sans-serif;">
+          <h3 style="margin:0 0 16px;font-size:20px;font-weight:600;">Get a Loan Quote</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <input name="full_name" placeholder="Full Name *" required style="padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;" />
+            <input name="phone" placeholder="Phone Number *" required style="padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;" />
+            <input name="email" type="email" placeholder="Email" style="padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;" />
+            <select name="loan_type" style="padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;color:#6b7280;">
+              <option value="">Loan Type</option>
+              <option value="home_loan">Home Loan</option>
+              <option value="personal_loan">Personal Loan</option>
+              <option value="business_loan">Business Loan</option>
+              <option value="loan_against_property">Loan Against Property</option>
+              <option value="car_loan">Car Loan</option>
+              <option value="education_loan">Education Loan</option>
+              <option value="gold_loan">Gold Loan</option>
+            </select>
+            <input name="loan_amount" type="number" placeholder="Required Amount" style="padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;" />
+            <input name="city" placeholder="City" style="padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;" />
+            <textarea name="message" placeholder="Message" rows="3" style="padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;resize:vertical;"></textarea>
+            <button type="submit" style="padding:12px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">
+              Submit
+            </button>
+          </div>
+          <p id="__dsa_msg" style="margin:12px 0 0;font-size:13px;display:none;"></p>
+        </form>
+      `;
+
+      container.querySelector("#__dsa_form").onsubmit = function (e) {
+        e.preventDefault();
+        var fd = new FormData(e.target);
+        var body = {};
+        fd.forEach(function (v, k) {
+          if (v) body[k] = v;
+        });
+        var msg = container.querySelector("#__dsa_msg");
+        msg.style.display = "block";
+        msg.style.color = "#6b7280";
+        msg.textContent = "Submitting...";
+        fetch(API + "/public/website/" + SLUG + "/leads", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        })
+          .then(function (r) {
+            if (r.ok) {
+              msg.style.color = "#16a34a";
+              msg.textContent = "Thank you! We will contact you soon.";
+              e.target.reset();
+            } else {
+              msg.style.color = "#dc2626";
+              msg.textContent = "Something went wrong. Please try again.";
+            }
+          })
+          .catch(function () {
+            msg.style.color = "#dc2626";
+            msg.textContent = "Network error. Please try again.";
+          });
+      };
+    })();
+  </script>
+</body>
+</html>
