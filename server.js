@@ -53,6 +53,8 @@ function getEnvValue(key, fallback = "") {
 
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
+let dbReady = false;
+let dbInitErrorMessage = "";
 const PUBLIC_DIR = path.join(__dirname, "public");
 const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL || "";
 const ADMIN_API_KEY = getEnvValue("ADMIN_API_KEY", "");
@@ -672,7 +674,12 @@ const apiLimiter = rateLimit({
 app.use("/api", apiLimiter);
 
 app.get("/health", (_req, res) => {
-  res.json({ success: true, status: "ok" });
+  res.json({
+    success: true,
+    status: "ok",
+    dbReady,
+    dbInitError: dbInitErrorMessage,
+  });
 });
 
 function parseCookieHeader(cookieHeader = "") {
@@ -1896,15 +1903,20 @@ app.get(/.*/, (req, res, next) => {
   sendHtmlWithOg(req, res, "index.html", req.path).catch(next);
 });
 
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on http://0.0.0.0:${PORT}`);
+});
+
 initDb()
   .then(() => {
+    dbReady = true;
+    dbInitErrorMessage = "";
+    console.log("Database initialized successfully");
     setInterval(processNextAiCallJob, AI_CALL_WORKER_INTERVAL_MS);
     setTimeout(processNextAiCallJob, 1000);
-    app.listen(PORT, "0.0.0.0", () => {
-      console.log(`Server running on http://0.0.0.0:${PORT}`);
-    });
   })
   .catch((error) => {
-    console.error("Failed to initialize database", error);
-    process.exit(1);
+    dbReady = false;
+    dbInitErrorMessage = String(error && error.message ? error.message : error || "Unknown error");
+    console.error("Database initialization failed (app still running):", error);
   });
