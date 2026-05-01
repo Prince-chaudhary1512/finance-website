@@ -44,25 +44,12 @@
     </section>
 
     <section id="dashboard" class="hidden">
-      <div class="mb-4 grid gap-3 rounded-2xl border border-slate-800 bg-slate-900 p-4 md:grid-cols-6">
+      <div class="mb-4 grid gap-3 rounded-2xl border border-slate-800 bg-slate-900 p-4 md:grid-cols-5">
         <input id="search" type="text" placeholder="Search by name/city/mobile/email..." class="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-400/50 md:col-span-2" />
         <input id="from" type="date" class="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-400/50" />
         <input id="to" type="date" class="rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-sky-400/50" />
         <button id="export-btn" class="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-400">Export CSV</button>
-        <button id="export-dsa-btn" class="rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white hover:bg-sky-400">Export DSA CSV</button>
       </div>
-      <p class="mb-4 rounded-xl border border-slate-800 bg-slate-900/70 px-4 py-3 text-xs text-slate-400">
-        DSA import notes: use <span class="font-semibold text-slate-200">Export DSA CSV</span>.
-        Column mapping is <span class="font-semibold text-slate-200">name → Borrower Name</span>,
-        <span class="font-semibold text-slate-200">phone → Phone</span>,
-        <span class="font-semibold text-slate-200">email → Email</span>,
-        <span class="font-semibold text-slate-200">city → City</span>,
-        <span class="font-semibold text-slate-200">loan_type → Lead Type</span>,
-        <span class="font-semibold text-slate-200">loan_amount → Amount</span>,
-        <span class="font-semibold text-slate-200">source → Source</span>.
-        When <span class="font-semibold text-slate-200">DSASATHI_API_KEY</span> is set, new leads are also pushed to DSA Sathi (<span class="font-semibold text-slate-200">POST /leads</span>) in the background; status appears in the DSA column below.
-        Inbound webhooks: point DSA to <span class="font-semibold text-slate-200">/api/webhooks/dsasathi</span> or <span class="font-semibold text-slate-200">/dsa-webhook</span>; CRM updates show in <span class="font-semibold text-slate-200">DSA CRM</span> when <span class="font-semibold text-slate-200">lead_id</span> matches the stored DSA lead id.
-      </p>
 
       <div class="overflow-x-auto rounded-2xl border border-slate-800 bg-slate-900">
         <table class="min-w-full text-left text-sm">
@@ -75,8 +62,6 @@
               <th class="px-4 py-3">City</th>
               <th class="px-4 py-3">Mobile</th>
               <th class="px-4 py-3">Email</th>
-              <th class="px-4 py-3">DSA</th>
-              <th class="px-4 py-3">DSA CRM</th>
               <th class="px-4 py-3">Created</th>
             </tr>
           </thead>
@@ -124,35 +109,13 @@
         .replace(/"/g, "&quot;");
     }
 
-    function dsaStatusClass(status) {
-      const s = String(status || "pending");
-      if (s === "sent") return "bg-emerald-500/20 text-emerald-200";
-      if (s === "failed") return "bg-red-500/20 text-red-200";
-      if (s === "skipped") return "bg-slate-600/40 text-slate-300";
-      return "bg-amber-500/15 text-amber-200";
-    }
-
     function renderRows(items) {
       if (!items.length) {
-        tbody.innerHTML = "<tr><td class='px-4 py-3 text-slate-400' colspan='10'>No leads found.</td></tr>";
+        tbody.innerHTML = "<tr><td class='px-4 py-3 text-slate-400' colspan='8'>No leads found.</td></tr>";
         return;
       }
       tbody.innerHTML = items
         .map((row) => {
-          const st = row.dsasathi_status || "pending";
-          const msg = row.dsasathi_message || "";
-          const rid = row.dsasathi_lead_id || "";
-          const title = escapeHtml(msg);
-          const whEv = row.dsasathi_webhook_event || "";
-          const whSum = row.dsasathi_webhook_summary || "";
-          const loanSt = row.dsasathi_crm_loan_status || "";
-          const loanId = row.dsasathi_crm_loan_id || "";
-          const asn = row.dsasathi_crm_assigned_to || "";
-          const crmTitle = escapeHtml([whEv, whSum].filter(Boolean).join(" — "));
-          const crmLine =
-            [loanSt && `Status: ${loanSt}`, loanId && `Loan: ${loanId}`, asn && `Agent: ${asn}`]
-              .filter(Boolean)
-              .join(" · ") || "—";
           return `
           <tr class="border-t border-slate-800">
             <td class="px-4 py-3">${row.id}</td>
@@ -162,14 +125,6 @@
             <td class="px-4 py-3">${escapeHtml(row.city)}</td>
             <td class="px-4 py-3">${escapeHtml(row.mobile)}</td>
             <td class="px-4 py-3">${escapeHtml(row.email || "-")}</td>
-            <td class="px-4 py-3 max-w-[200px]" title="${title}">
-              <span class="inline-block rounded px-2 py-0.5 text-xs font-medium ${dsaStatusClass(st)}">${escapeHtml(st)}</span>
-              ${rid ? `<div class="mt-1 truncate text-xs text-slate-400" title="${escapeHtml(rid)}">${escapeHtml(rid)}</div>` : ""}
-            </td>
-            <td class="px-4 py-3 max-w-[220px] text-xs text-slate-300" title="${crmTitle}">
-              ${whEv ? `<div class="font-medium text-slate-200">${escapeHtml(whEv)}</div>` : ""}
-              <div class="mt-0.5 line-clamp-2 text-slate-400">${escapeHtml(whSum || crmLine)}</div>
-            </td>
             <td class="px-4 py-3">${new Date(row.created_at).toLocaleString()}</td>
           </tr>
         `;
@@ -287,14 +242,6 @@
       if (fromInput.value) params.set("from", toIsoRange(fromInput.value, false));
       if (toInput.value) params.set("to", toIsoRange(toInput.value, true));
       window.location.href = `/api/admin/leads/export.csv?${params.toString()}`;
-    });
-
-    document.getElementById("export-dsa-btn").addEventListener("click", () => {
-      const params = new URLSearchParams();
-      if (searchInput.value.trim()) params.set("q", searchInput.value.trim());
-      if (fromInput.value) params.set("from", toIsoRange(fromInput.value, false));
-      if (toInput.value) params.set("to", toIsoRange(toInput.value, true));
-      window.location.href = `/api/admin/leads/export-dsasathi.csv?${params.toString()}`;
     });
 
     checkAuth();

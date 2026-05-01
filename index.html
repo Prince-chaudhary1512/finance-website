@@ -479,7 +479,6 @@
             <a class="font-semibold text-sky-300 hover:text-sky-200" href="/privacy.html">Privacy Policy</a>.
           </p>
         </div>
-        <div id="local-lead-form-card">
         <form id="lead-form" class="grid gap-5 rounded-2xl border border-slate-800 bg-slate-950 p-6 md:grid-cols-2 lift-card">
           <div>
             <label for="full-name" class="mb-2 block text-sm font-medium text-slate-200">Full Name</label>
@@ -530,11 +529,6 @@
           </div>
           <p id="form-message" class="md:col-span-2 text-sm text-slate-300"></p>
         </form>
-        </div>
-        <div id="dsa-lead-form-card" class="mt-8 rounded-2xl border border-slate-800 bg-slate-950 p-6 hidden">
-          <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-brand">DSA Sathi Form</p>
-          <div id="dsa-lead-form"></div>
-        </div>
       </div>
     </section>
   </main>
@@ -611,18 +605,6 @@
   </footer>
 
   <script>
-    const useDsaPublicForm = "__USE_DSA_PUBLIC_FORM__" === "true";
-    const localLeadFormCard = document.getElementById("local-lead-form-card");
-    const dsaLeadFormCard = document.getElementById("dsa-lead-form-card");
-
-    if (useDsaPublicForm) {
-      if (localLeadFormCard) localLeadFormCard.classList.add("hidden");
-      if (dsaLeadFormCard) dsaLeadFormCard.classList.remove("hidden");
-    } else {
-      if (localLeadFormCard) localLeadFormCard.classList.remove("hidden");
-      if (dsaLeadFormCard) dsaLeadFormCard.classList.add("hidden");
-    }
-
     const form = document.getElementById("lead-form");
     const formMessage = document.getElementById("form-message");
     const emiLoanAmount = document.getElementById("emi-loan-amount");
@@ -678,7 +660,7 @@
     });
     calculateEmi();
 
-    if (form && !useDsaPublicForm) {
+    if (form) {
       form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
@@ -747,73 +729,6 @@
       revealObserver.observe(item);
     });
 
-    (function initDsaLeadWidget() {
-      if (!useDsaPublicForm) return;
-      var API = "https://api.dsasathi.com/api/v1";
-      var SLUG = "mr-ok-financial-services";
-      var container = document.getElementById("dsa-lead-form");
-      if (!container) return;
-
-      container.innerHTML = `
-        <form id="__dsa_form" style="max-width:480px;font-family:system-ui,sans-serif;">
-          <h3 style="margin:0 0 16px;font-size:20px;font-weight:600;">Get a Loan Quote</h3>
-          <div style="display:flex;flex-direction:column;gap:12px;">
-            <input name="full_name" placeholder="Full Name *" required style="padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;" />
-            <input name="phone" placeholder="Phone Number *" required style="padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;" />
-            <input name="email" type="email" placeholder="Email" style="padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;" />
-            <select name="loan_type" style="padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;color:#6b7280;">
-              <option value="">Loan Type</option>
-              <option value="home_loan">Home Loan</option>
-              <option value="personal_loan">Personal Loan</option>
-              <option value="business_loan">Business Loan</option>
-              <option value="loan_against_property">Loan Against Property</option>
-              <option value="car_loan">Car Loan</option>
-              <option value="education_loan">Education Loan</option>
-              <option value="gold_loan">Gold Loan</option>
-            </select>
-            <input name="loan_amount" type="number" placeholder="Required Amount" style="padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;" />
-            <input name="city" placeholder="City" style="padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;" />
-            <textarea name="message" placeholder="Message" rows="3" style="padding:10px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;resize:vertical;"></textarea>
-            <button type="submit" style="padding:12px;background:#2563eb;color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;">
-              Submit
-            </button>
-          </div>
-          <p id="__dsa_msg" style="margin:12px 0 0;font-size:13px;display:none;"></p>
-        </form>
-      `;
-
-      container.querySelector("#__dsa_form").onsubmit = function (e) {
-        e.preventDefault();
-        var fd = new FormData(e.target);
-        var body = {};
-        fd.forEach(function (v, k) {
-          if (v) body[k] = v;
-        });
-        var msg = container.querySelector("#__dsa_msg");
-        msg.style.display = "block";
-        msg.style.color = "#6b7280";
-        msg.textContent = "Submitting...";
-        fetch(API + "/public/website/" + SLUG + "/leads", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
-        })
-          .then(function (r) {
-            if (r.ok) {
-              msg.style.color = "#16a34a";
-              msg.textContent = "Thank you! We will contact you soon.";
-              e.target.reset();
-            } else {
-              msg.style.color = "#dc2626";
-              msg.textContent = "Something went wrong. Please try again.";
-            }
-          })
-          .catch(function () {
-            msg.style.color = "#dc2626";
-            msg.textContent = "Network error. Please try again.";
-          });
-      };
-    })();
   </script>
 </body>
 </html>
