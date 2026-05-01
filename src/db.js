@@ -1,14 +1,23 @@
 const fs = require("fs");
 const path = require("path");
+const os = require("os");
 const sqlite3 = require("sqlite3");
 
-const dataDir = path.join(__dirname, "..", "data");
-const dbPath = path.join(dataDir, "leads.db");
+let dataDir = path.join(__dirname, "..", "data");
 
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
+try {
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+} catch (_error) {
+  // Some managed hosts don't allow writes in app directory; fallback to OS tmp.
+  dataDir = path.join(os.tmpdir(), "mrok_financial_services");
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
 }
 
+const dbPath = path.join(dataDir, "leads.db");
 const db = new sqlite3.Database(dbPath);
 
 function run(sql, params = []) {
