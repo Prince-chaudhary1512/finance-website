@@ -55,6 +55,13 @@ const app = express();
 const PORT = Number(process.env.PORT || 3000);
 let dbReady = false;
 let dbInitErrorMessage = "";
+
+process.on("uncaughtException", (err) => {
+  console.error("uncaughtException", err);
+});
+process.on("unhandledRejection", (reason) => {
+  console.error("unhandledRejection", reason);
+});
 const PUBLIC_DIR = path.join(__dirname, "public");
 const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL || "";
 const ADMIN_API_KEY = getEnvValue("ADMIN_API_KEY", "");
@@ -385,6 +392,10 @@ const leadSchema = z.object({
 
 app.use(
   helmet({
+    crossOriginOpenerPolicy: false,
+    originAgentCluster: false,
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: { policy: "cross-origin" },
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
@@ -1903,8 +1914,20 @@ app.get(/.*/, (req, res, next) => {
   sendHtmlWithOg(req, res, "index.html", req.path).catch(next);
 });
 
-app.listen(PORT, "0.0.0.0", () => {
+console.log("[startup]", {
+  cwd: process.cwd(),
+  envPort: process.env.PORT || "",
+  resolvedPort: PORT,
+  node: process.version,
+});
+
+const server = app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on http://0.0.0.0:${PORT}`);
+});
+
+server.on("error", (err) => {
+  console.error("HTTP server listen error", err);
+  process.exit(1);
 });
 
 initDb()
