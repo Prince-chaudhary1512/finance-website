@@ -1,5 +1,6 @@
 const dotenv = require("dotenv");
-dotenv.config({ override: true });
+// quiet: suppress "injected env (N) from .env" — (0) is normal on hosts with no .env file; panel env still works
+dotenv.config({ override: true, quiet: true });
 const path = require("path");
 const fsSync = require("fs");
 const fs = require("fs/promises");
