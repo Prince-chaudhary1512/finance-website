@@ -1,7 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
-const sqlite3 = require("sqlite3");
 
 let dataDir = path.join(__dirname, "..", "data");
 
@@ -18,11 +17,25 @@ try {
 }
 
 const dbPath = path.join(dataDir, "leads.db");
-const db = new sqlite3.Database(dbPath);
+
+/** Lazy open so `require("sqlite3")` runs after HTTP listen (avoids 503 if native addon load fails at process start). */
+let db = null;
+function getDb() {
+  if (db) return db;
+  const sqlite3 = require("sqlite3");
+  db = new sqlite3.Database(dbPath);
+  return db;
+}
 
 function run(sql, params = []) {
   return new Promise((resolve, reject) => {
-    db.run(sql, params, function onRun(err) {
+    let connection;
+    try {
+      connection = getDb();
+    } catch (err) {
+      return reject(err);
+    }
+    connection.run(sql, params, function onRun(err) {
       if (err) return reject(err);
       return resolve({ id: this.lastID, changes: this.changes });
     });
@@ -31,7 +44,13 @@ function run(sql, params = []) {
 
 function get(sql, params = []) {
   return new Promise((resolve, reject) => {
-    db.get(sql, params, (err, row) => {
+    let connection;
+    try {
+      connection = getDb();
+    } catch (err) {
+      return reject(err);
+    }
+    connection.get(sql, params, (err, row) => {
       if (err) return reject(err);
       return resolve(row);
     });
@@ -40,7 +59,13 @@ function get(sql, params = []) {
 
 function all(sql, params = []) {
   return new Promise((resolve, reject) => {
-    db.all(sql, params, (err, rows) => {
+    let connection;
+    try {
+      connection = getDb();
+    } catch (err) {
+      return reject(err);
+    }
+    connection.all(sql, params, (err, rows) => {
       if (err) return reject(err);
       return resolve(rows);
     });
