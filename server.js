@@ -4,7 +4,6 @@ dotenv.config({ override: true, quiet: true });
 const path = require("path");
 const fsSync = require("fs");
 const fs = require("fs/promises");
-const crypto = require("crypto");
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
@@ -15,8 +14,6 @@ const {
   initDb,
   insertLead,
   updateLeadAiProfile,
-  listLeads,
-  exportLeads,
 } = require("./src/db");
 
 let envFileValues = {};
@@ -46,20 +43,12 @@ process.on("unhandledRejection", (reason) => {
 });
 const PUBLIC_DIR = path.join(__dirname, "public");
 const GOOGLE_SCRIPT_URL = process.env.GOOGLE_SCRIPT_URL || "";
-const ADMIN_API_KEY = getEnvValue("ADMIN_API_KEY", "");
-const ADMIN_USERNAME = getEnvValue("ADMIN_USERNAME", "admin");
-const ADMIN_PASSWORD = getEnvValue("ADMIN_PASSWORD", "");
-const ADMIN_COOKIE_NAME = "mrok_admin_session";
-const ADMIN_SESSION_SECRET = String(getEnvValue("ADMIN_SESSION_SECRET", "") || "").trim();
-const ADMIN_SESSION_TTL_MS = 12 * 60 * 60 * 1000;
-const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const TRUST_PROXY = String(process.env.TRUST_PROXY || "false").trim();
 const PUBLIC_SITE_URL = String(process.env.PUBLIC_SITE_URL || "").trim().replace(/\/$/, "");
 
 const OG_HTML_FILES = new Set([
   "index.html",
   "about.html",
-  "admin.html",
   "personal-loan.html",
   "home-loan.html",
   "lap-loan.html",
@@ -79,7 +68,6 @@ const OG_HTML_FILES = new Set([
 const OG_CANONICAL_PATH_BY_FILE = {
   "index.html": "/",
   "about.html": "/about",
-  "admin.html": "/admin",
   "personal-loan.html": "/personal-loan",
   "home-loan.html": "/home-loan",
   "lap-loan.html": "/lap-loan",
@@ -362,188 +350,6 @@ app.get("/health", (_req, res) => {
   });
 });
 
-function parseCookieHeader(cookieHeader = "") {
-  return cookieHeader
-    .split(";")
-    .map((part) => part.trim())
-    .filter(Boolean)
-    .reduce((acc, part) => {
-      const idx = part.indexOf("=");
-      if (idx === -1) return acc;
-      const key = part.slice(0, idx);
-      const value = decodeURIComponent(part.slice(idx + 1));
-      acc[key] = value;
-      return acc;
-    }, {});
-}
-
-function hasAdminSessionSecret() {
-  return ADMIN_SESSION_SECRET.length >= 32;
-}
-
-function toBase64Url(input) {
-  return Buffer.from(input)
-    .toString("base64")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_")
-    .replace(/=+$/g, "");
-}
-
-function fromBase64Url(input) {
-  const normalized = String(input || "").replace(/-/g, "+").replace(/_/g, "/");
-  const padded = normalized + "=".repeat((4 - (normalized.length % 4 || 4)) % 4);
-  return Buffer.from(padded, "base64").toString("utf8");
-}
-
-function createAdminSessionToken() {
-  if (!hasAdminSessionSecret()) return "";
-  const payload = {
-    sub: ADMIN_USERNAME,
-    iat: Date.now(),
-    exp: Date.now() + ADMIN_SESSION_TTL_MS,
-    nonce: crypto.randomBytes(16).toString("hex"),
-  };
-  const payloadB64 = toBase64Url(JSON.stringify(payload));
-  const sig = crypto.createHmac("sha256", ADMIN_SESSION_SECRET).update(payloadB64).digest("base64url");
-  return `${payloadB64}.${sig}`;
-}
-
-function validateAdminSessionToken(token = "") {
-  if (!token || !hasAdminSessionSecret()) return false;
-  const [payloadB64, sig] = String(token).split(".");
-  if (!payloadB64 || !sig) return false;
-  const expectedSig = crypto.createHmac("sha256", ADMIN_SESSION_SECRET).update(payloadB64).digest("base64url");
-  try {
-    if (!crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expectedSig))) {
-      return false;
-    }
-  } catch {
-    return false;
-  }
-
-  try {
-    const payload = JSON.parse(fromBase64Url(payloadB64));
-    if (!payload || typeof payload !== "object") return false;
-    if (payload.sub !== ADMIN_USERNAME) return false;
-    if (!Number.isFinite(payload.exp) || Date.now() > payload.exp) return false;
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-function setAdminCookie(res, token) {
-  res.cookie(ADMIN_COOKIE_NAME, encodeURIComponent(token), {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: IS_PRODUCTION,
-    maxAge: ADMIN_SESSION_TTL_MS,
-    path: "/",
-  });
-}
-
-function clearAdminCookie(res) {
-  res.cookie(ADMIN_COOKIE_NAME, "", {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: IS_PRODUCTION,
-    maxAge: 0,
-    path: "/",
-  });
-}
-
-function requireAdminAuth(req, res, next) {
-  const suppliedKey = req.get("x-admin-key");
-  if (ADMIN_API_KEY && suppliedKey && suppliedKey === ADMIN_API_KEY) {
-    return next();
-  }
-
-  const cookies = parseCookieHeader(req.headers.cookie || "");
-  const token = cookies[ADMIN_COOKIE_NAME];
-  if (validateAdminSessionToken(token)) {
-    return next();
-  }
-
-  if (!ADMIN_API_KEY && !ADMIN_PASSWORD) {
-    return res.status(503).json({
-      success: false,
-      message: "Admin auth is not configured. Set ADMIN_PASSWORD or ADMIN_API_KEY.",
-    });
-  }
-
-  return res.status(401).json({
-    success: false,
-    message: "Unauthorized",
-  });
-}
-
-function toCsv(rows) {
-  const headers = [
-    "id",
-    "name",
-    "loan_type",
-    "loan_amount",
-    "city",
-    "mobile",
-    "email",
-    "created_at",
-  ];
-  const escapeCell = (value) => {
-    const raw = value == null ? "" : String(value);
-    return `"${raw.replace(/"/g, '""')}"`;
-  };
-
-  const lines = [
-    headers.join(","),
-    ...rows.map((row) => headers.map((key) => escapeCell(row[key])).join(",")),
-  ];
-  return lines.join("\n");
-}
-
-app.post("/api/admin/login", (req, res) => {
-  const { username = "", password = "" } = req.body || {};
-  const inputUsername = String(username || "").trim().toLowerCase();
-  const inputPassword = String(password || "").trim();
-  const expectedUsername = String(ADMIN_USERNAME || "").trim().toLowerCase();
-  const expectedPassword = String(ADMIN_PASSWORD || "").trim();
-  if (!ADMIN_PASSWORD) {
-    return res.status(401).json({
-      success: false,
-      message: "Admin login is disabled. Set ADMIN_PASSWORD in .env",
-    });
-  }
-
-  if (inputUsername !== expectedUsername || inputPassword !== expectedPassword) {
-    return res.status(401).json({
-      success: false,
-      message: "Invalid credentials",
-    });
-  }
-
-  if (!hasAdminSessionSecret()) {
-    return res.status(503).json({
-      success: false,
-      message: "Admin session secret is missing. Set ADMIN_SESSION_SECRET (min 32 chars).",
-    });
-  }
-
-  const token = createAdminSessionToken();
-  setAdminCookie(res, token);
-  return res.json({ success: true, message: "Logged in successfully" });
-});
-
-app.post("/api/admin/logout", (_req, res) => {
-  clearAdminCookie(res);
-  return res.json({ success: true });
-});
-
-app.get("/api/admin/me", (req, res) => {
-  const cookies = parseCookieHeader(req.headers.cookie || "");
-  const token = cookies[ADMIN_COOKIE_NAME];
-  const authenticated = validateAdminSessionToken(token);
-  return res.json({ success: true, authenticated });
-});
-
 app.post("/api/leads", async (req, res) => {
   const parsed = leadSchema.safeParse(req.body);
   if (!parsed.success) {
@@ -589,51 +395,6 @@ app.post("/api/leads", async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Internal server error",
-    });
-  }
-});
-
-app.get("/api/admin/leads", requireAdminAuth, async (req, res) => {
-  const page = Number(req.query.page || 1);
-  const limit = Number(req.query.limit || 10);
-  const query = String(req.query.q || "");
-  const from = String(req.query.from || "");
-  const to = String(req.query.to || "");
-
-  try {
-    const result = await listLeads({ page, limit, query, from, to });
-    return res.json({
-      success: true,
-      ...result,
-    });
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Failed to fetch leads",
-    });
-  }
-});
-
-app.get("/api/admin/leads/export.csv", requireAdminAuth, async (req, res) => {
-  const query = String(req.query.q || "");
-  const from = String(req.query.from || "");
-  const to = String(req.query.to || "");
-
-  try {
-    const rows = await exportLeads({ query, from, to });
-    const csv = toCsv(rows);
-    const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-
-    res.setHeader("Content-Type", "text/csv; charset=utf-8");
-    res.setHeader(
-      "Content-Disposition",
-      `attachment; filename="mrok-leads-${timestamp}.csv"`
-    );
-    return res.status(200).send(csv);
-  } catch (error) {
-    return res.status(500).json({
-      success: false,
-      message: "Failed to export leads",
     });
   }
 });
@@ -725,10 +486,6 @@ app.use((req, res, next) => {
 
 app.use(express.static(PUBLIC_DIR));
 
-app.get("/admin", (req, res, next) => {
-  sendHtmlWithOg(req, res, "admin.html", "/admin").catch(next);
-});
-
 app.get("/about", (req, res, next) => {
   sendHtmlWithOg(req, res, "about.html", "/about").catch(next);
 });
@@ -759,6 +516,10 @@ app.get("/project-loan", (req, res, next) => {
 
 app.get("/builder-funding-micro-cf", (req, res, next) => {
   sendHtmlWithOg(req, res, "builder-funding-micro-cf.html", "/builder-funding-micro-cf").catch(next);
+});
+
+app.get("/admin", (_req, res) => {
+  res.status(404).type("txt").send("Not found");
 });
 
 app.get(/.*/, (req, res, next) => {

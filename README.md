@@ -18,15 +18,10 @@
 - Lead input validation using `zod`
 - SQLite persistence at `data/leads.db`
 - Optional forwarding to Google Sheets via `GOOGLE_SCRIPT_URL` in `.env`
-- Admin leads dashboard with search, date filters, and CSV export
 
 ## Production hardening checklist
 
 - Do not commit `.env` to source control
-- Use strong secrets for:
-  - `ADMIN_PASSWORD`
-  - `ADMIN_API_KEY`
-  - `ADMIN_SESSION_SECRET` (minimum 32 characters)
 - Set `NODE_ENV=production` in production
 - Enable HTTPS and set `TRUST_PROXY=true` (or a hop count like `1`) if running behind a reverse proxy/load balancer
 
@@ -38,7 +33,6 @@
    - `NODE_ENV=production`
    - `TRUST_PROXY=true`
    - `PUBLIC_SITE_URL=https://YOUR_DOMAIN`
-   - `ADMIN_PASSWORD`, `ADMIN_API_KEY`, `ADMIN_SESSION_SECRET`
 4. Ensure SQLite persistence:
    - small deployments: keep SQLite and attach a persistent volume/disk
    - scaling deployments: migrate to PostgreSQL/MySQL
@@ -46,7 +40,6 @@
 6. Enable HTTPS and custom domain, then verify:
    - `/health` returns success
    - lead form saves data
-   - admin login and CSV export work
 7. Add uptime monitoring and periodic backups for `data/leads.db`
 
 ## API
